@@ -1,6 +1,5 @@
 from django.contrib import admin
-from note.models import Category
-# Register your models here.
 
+from home.models import Setting
 
-admin.site.register(Category)
+admin.site.register(Setting)
