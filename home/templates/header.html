@@ -156,18 +156,16 @@
                                 </li>
                                 <li class="dropdown">
                                     <a href="#">Fakülteler <i class="icon-angle-down"></i></a>
-                                    <ul class="dropdown-menu">
+
                                         {% load mptt_tags %}
-
+                                            <ul class="dropdown-menu">
                                         {% recursetree category %}
-                                            <li>
-                                            <li class="dropdown"><a href="/">{{ node.title }} {% if not node.is_leaf_node %}<i class="icon-angle-right"></i>{% endif %}</a>
 
+                                            <li class="dropdown"><a href="/fakulteler/{{ node.id }}/{{ node.slug }}">{{ node.title }} {% if not node.is_leaf_node %}<i class="icon-angle-right"></i>{% endif %}</a>
                                                 {% if not node.is_leaf_node %}
-                                                    <ul class="dropdown-menu sub-menu-level1">
-                                                        <li><a href="index.html">deneme {{ children }}</a></li>
+                                                    <ul class="dropdown-menu sub-menu-level1 ">
+                                                      {{ children }}
                                                     </ul>
-
                                                 {% endif %}
 
                                             </li>

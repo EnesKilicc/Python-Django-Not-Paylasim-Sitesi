@@ -4,15 +4,18 @@ from django.shortcuts import render
 
 # Create your views here.
 from home.models import Setting, ContactFormMessage, ContactFormu
-from note.models import Category
+from note.models import Category, Note
+
 
 def index(request):
     setting = Setting.objects.get(pk=1)
     sliderdata = Category.objects.all()[:4]
+    portfoliodata = Note.objects.all()[:8]
     category = Category.objects.all()
     context = {'setting':setting,'page':'home',
                'sliderdata': sliderdata,
-               'category':category}
+               'category':category,
+               'portfoliodata':portfoliodata}
     return render(request, 'index.html', context)
 
 
@@ -32,11 +35,19 @@ def contact(request):
 
     setting = Setting.objects.get(pk=1)
     form = ContactFormu()
-    context = {'setting':setting, 'page':'contact', 'form': form}
+    category = Category.objects.all()
+    context = {'setting':setting, 'page':'contact','category':category, 'form': form}
     return render(request, 'contact.html', context)
 
 
 def hakkimizda(request):
     setting = Setting.objects.get(pk=1)
-    context = {'setting':setting, 'page':'hakkimizda'}
+    category = Category.objects.all()
+    context = {'setting':setting, 'page':'hakkimizda','category':category}
     return render(request, 'hakkimizda.html', context)
+def category_notes(request,id,slug):
+    setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    notes = Note.objects.filter(category_id=id)
+    context = {'category':category,'notes':notes}
+    return render(request, 'notes.html', context)

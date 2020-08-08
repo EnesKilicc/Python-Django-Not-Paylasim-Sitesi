@@ -32,7 +32,7 @@ class Category(MPTTModel):
 
     def image_tag(self):
         if self.image:
-            return mark_safe(f'<img src="{self.image.url}" height="50"/>')
+            return mark_safe('<img src="{self.image.url}" height="50"/>')
         else:
             return ""
     image_tag.short_description = 'Image'
@@ -60,7 +60,7 @@ class Note(models.Model):
 
     def image_tag(self):
         if self.image:
-            return mark_safe(f'<img src="{self.image.url}" height="50"/>')
+            return mark_safe('<img src="{self.image.url}" height="50"/>')
         else:
             return ""
     image_tag.short_description = 'Image'
