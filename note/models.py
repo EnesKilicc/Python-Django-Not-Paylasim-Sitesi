@@ -1,3 +1,4 @@
+from ckeditor_uploader.fields import RichTextUploadingField
 from django.db import models
 from django.utils.safestring import mark_safe
 
@@ -36,7 +37,7 @@ class Note(models.Model):
     okul = models.CharField(max_length=100)
     ders = models.CharField(max_length=100)
     egitmen = models.CharField(max_length=50)
-    detail = models.TextField()
+    detail = RichTextUploadingField()
     status = models.CharField(max_length=10, choices=STATUS)
     slug = models.SlugField()
     category = models.ForeignKey('Category', null=False, on_delete=models.CASCADE)
