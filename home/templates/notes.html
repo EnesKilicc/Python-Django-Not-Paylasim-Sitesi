@@ -21,13 +21,13 @@
             <div class="row">
                 <div class="span4">
                     <div class="inner-heading">
-                        <h2>Hakkımızda</h2>
+                        <h2>{{ categorydata.title }}</h2>
                     </div>
                 </div>
                 <div class="span8">
                     <ul class="breadcrumb">
                         <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
-                        <li class="active">Notlar</li>
+                        <li class="active">{{ categorydata.title }} Notları</li>
                     </ul>
                 </div>
             </div>
@@ -48,15 +48,11 @@
                                         <i class="icon-angle-right"></i><a href="/fakulteler/{{ node.id }}/{{ node.slug }}">{{ node.title }} Notları</a>
 
                                         {% if not node.is_leaf_node %}
-
+                                            {{ children }}
                                         {% endif %}
                                     </li>
                                 {% endrecursetree %}
-                                <li><i class="icon-angle-right"></i><a href="#">Web design</a><span> (20)</span></li>
-                                <li><i class="icon-angle-right"></i><a href="#">Online business</a><span> (11)</span></li>
-                                <li><i class="icon-angle-right"></i><a href="#">Marketing strategy</a><span> (9)</span></li>
-                                <li><i class="icon-angle-right"></i><a href="#">Technology</a><span> (12)</span></li>
-                                <li><i class="icon-angle-right"></i><a href="#">About finance</a><span> (18)</span></li>
+
                             </ul>
                         </div>
                     </aside>
@@ -90,7 +86,7 @@
                                             <li><i class="icon-folder-open"></i><a href="#"> {{ rs.ders }}</a></li>
                                             <li><i class="icon-comments"></i><a href="#">4 Comments</a></li>
                                         </ul>
-                                        <a href="#" class="pull-right" onclick="myFunction()">Continue reading <i class="icon-angle-right"></i></a>
+                                        <a href="/note/{{ rs.id }}/{{ rs.slug }}" class="pull-right">Continue reading <i class="icon-angle-right"></i></a>
                                     </div>
                                 </div>
                             </div>
