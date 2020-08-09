@@ -4,7 +4,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from home.models import Setting, ContactFormMessage, ContactFormu
-from note.models import Category, Note, Images
+from note.models import Category, Note, Images, Comment
 
 
 def index(request):
@@ -58,7 +58,10 @@ def note_detail(request,id,slug):
     note = Note.objects.get(pk=id)
     images = Images.objects.filter(note_id=id)
     category = Category.objects.all()
+    comments = Comment.objects.filter(note_id=id,status='True')
     context = {'category': category,
-               'note':note,
-               'images':images}
+               'note': note,
+               'images': images,
+               'comments': comments,
+               }
     return render(request, 'note_detail.html', context)
