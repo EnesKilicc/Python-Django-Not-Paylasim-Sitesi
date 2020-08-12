@@ -1,0 +1,95 @@
+{% extends 'homebase.html' %}
+
+{% block title %}
+    {{ profile.user.first_name }} {{ profile.user.last_name }}
+{% endblock %}
+{% block description %}
+    {{ setting.description }}
+{% endblock %}
+{% block keywords %}
+    {{ setting.keywords }}
+{% endblock %}
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}' />
+{% endblock %}
+{% block slider %}
+{% endblock %}
+
+{% block content %}
+    <section id="inner-headline">
+        <div class="container">
+            <div class="row">
+                <div class="span4">
+                    <div class="inner-heading">
+                        <h2>{{ user.first_name }} {{ user.last_name }} </h2>
+                    </div>
+                </div>
+                <div class="span8">
+                    <ul class="breadcrumb">
+                        <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                        <li class="active">Profile</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <aside class="left-sidebar">
+
+                        {% include 'user_panel.html' %}
+                    </aside>
+
+
+                </div>
+
+                <div class="span9">
+                    <article>
+
+
+
+                            <table class="table table-hover">
+                                <tr>
+                                    <th class="text-left"></th>
+                                    <td>
+                                    <a href="/user/update" class="btn btn-orange">Update Profile</a>
+                                    <a href="/user/password" class="btn btn-blue">Change Password</a>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <th class="text-left"></th>
+                                    <td><img src="{{ profile.image.url }}"></td>
+                                </tr>
+                                <tr>  <th>Name & Surname</th>
+                                    <td>{{ profile.user.first_name }} {{ profile.user.last_name }}</td>
+
+                                </tr>
+                                <tr>
+                                    <th>Email</th>
+                                    <td>{{ profile.user.email }}</td>
+
+                                <tr> <th>Phone</th>
+                                    <td>{{ profile.phone }}</td>
+
+                                <tr><th>University</th>
+                                    <td>{{ profile.university }}</td>
+                                <tr><th>Faculty</th>
+                                    <td>{{ profile.faculty }}</td>
+
+                            </table>
+
+
+
+
+
+
+                    </article>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}

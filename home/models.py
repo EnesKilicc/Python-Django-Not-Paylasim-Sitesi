@@ -1,6 +1,8 @@
 from ckeditor_uploader.fields import RichTextUploadingField
+from django.contrib.auth.models import User
 from django.db import models
 from django.forms import ModelForm, TextInput, Textarea
+from django.utils.safestring import mark_safe
 
 
 class Setting(models.Model):
@@ -61,3 +63,19 @@ class ContactFormu(ModelForm):
             'email': TextInput(attrs={'class': 'input', 'placeholder': 'E-mail Address'}),
             'message': TextInput(attrs={'class': 'input', 'placeholder': 'Your Message', 'rows': '12'}),
         }
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    phone = models.CharField(blank=True, max_length=20)
+    university = models.CharField(blank=True, max_length=150)
+    faculty = models.CharField(blank=True, max_length=100)
+    image = models.ImageField(blank=True, upload_to='images/users/')
+    def __str__(self):
+        return self.user.username
+    def image_tag(self):
+        if self.image:
+            return mark_safe(f'<img src="{self.image.url}" height="50"/>')
+
+class UserProfileForm(ModelForm):
+    class Meta:
+        model = UserProfile
+        fields = ['phone', 'university', 'faculty', 'image']
