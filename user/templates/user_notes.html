@@ -50,7 +50,7 @@
                     <article>
 
 
-
+                        <a class="btn btn-primary" href="/user/addnote">Add Note</a>
                             <table class="table table-hover">
                                 <tr>
                                     <th>Title</th>
@@ -76,6 +76,7 @@
 
                                     <td class="text-left">{{ rs.status }}</td>
                                     <td class="text-left">{{ rs.create_at }}</td>
+                                    <td class="text-left"><a class="btn btn-primary" href="/note/{{ rs.id }}/{{ rs.slug }}">Show</a> </td>
                                     <td class="text-left"><a class="btn btn-primary" href="/user/editnote/{{ rs.id }}">Edit</a> </td>
                                     <td class="text-left"><a class="btn btn-primary" href="#">Delete</a> </td>
                                     </tr>

@@ -80,10 +80,12 @@ class Images(models.Model):
             return ""
     image_tag.short_description = 'Image'
 
+
 class Comment(models.Model):
     STATUS = (('New', 'Yeni'),
               ('True', 'Evet'),
               ('False', 'Hayır'),
+              ('Update','Update'),
               )
     note = models.ForeignKey(Note,on_delete=models.CASCADE)
     user = models.ForeignKey(User,on_delete=models.CASCADE)

@@ -8,7 +8,7 @@ from django.shortcuts import render, redirect
 # Create your views here.
 from home.models import Setting, UserProfile
 from note.models import Category, Note, Comment
-from user.form import UserUpdateForm, ProfileUpdateForm, InsertNoteForm
+from user.form import UserUpdateForm, ProfileUpdateForm, InsertNoteForm, EditCommentForm
 
 
 def user_update(request):
@@ -108,6 +108,7 @@ def comments(request):
                'comments': comments,
                }
     return render(request, 'user_comments.html', context)
+
 def editnote(request,id):
     note = Note.objects.get(id=id)
     if request.method == 'POST':
@@ -129,6 +130,26 @@ def editnote(request,id):
                    'form':form}
         return render(request, 'user_add_note.html', context)
 
+def editcomment(request,id):
+    comment = Comment.objects.get(id=id)
+    if request.method == 'POST':
+        form = EditCommentForm(request.POST,request.FILES,instance=comment)
+        comment.status = 'Update'
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Güncelleme basarıyla yapıldı")
+            return HttpResponseRedirect('/user/comments')
+        else:
+            messages.success(request,"Güncelleme Hatası" + str(form.errors))
+            return HttpResponseRedirect('/user/editcomment/'+str(id))
+    else:
+        category = Category.objects.all()
+        setting = Setting.objects.get(pk=1)
+        form = EditCommentForm(instance=comment)
+        context = {'category':category,
+                   'setting':setting,
+                   'form':form}
+        return render(request, 'user_edit_comment.html', context)
 
 
 

@@ -6,7 +6,7 @@ from django.contrib.auth.models import User
 from django.forms import TextInput, EmailInput, Select, FileInput
 
 from home.models import UserProfile
-from note.models import Note, Category
+from note.models import Note, Category, Comment
 
 
 class UserUpdateForm(UserChangeForm):
@@ -58,4 +58,12 @@ class InsertNoteForm(forms.ModelForm):
             'category' : Select(attrs={'class':'input','placeholder':'category'},choices=CATEGORY),
             'image': FileInput(attrs={'class': 'input', 'placeholder': 'image'}),
 
+        }
+class EditCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('subject','comment')
+        widgets = {
+            'subject': TextInput(attrs={'class': 'input', 'placeholder': 'subject'}),
+            'comment': TextInput(attrs={'class': 'input', 'placeholder': 'comment'}),
         }

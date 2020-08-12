@@ -1,0 +1,72 @@
+{% extends 'homebase.html' %}
+
+{% block title %}
+    {{ profile.user.first_name }} {{ profile.user.last_name }}
+{% endblock %}
+{% block description %}
+    {{ setting.description }}
+{% endblock %}
+{% block keywords %}
+    {{ setting.keywords }}
+{% endblock %}
+{% block head %}
+    <link rel='shortcut icon' type='image/x-icon' href='{{ setting.icon.url }}' />
+    {% load static %}
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+<script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+{% endblock %}
+{% block slider %}
+{% endblock %}
+
+{% block content %}
+    <section id="inner-headline">
+        <div class="container">
+            <div class="row">
+                <div class="span4">
+                    <div class="inner-heading">
+                        <h2>{{ user.first_name }} {{ user.last_name }} </h2>
+                    </div>
+                </div>
+                <div class="span8">
+                    <ul class="breadcrumb">
+                        <li><a href="/"><i class="icon-home"></i></a><i class="icon-angle-right"></i></li>
+                        <li class="active">Profile</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section id="content">
+        <div class="container">
+            <div class="row">
+                <div class="span3">
+                    <aside class="left-sidebar">
+
+                        {% include 'user_panel.html' %}
+                    </aside>
+
+
+                </div>
+
+                <div class="span9">
+                    <article>
+
+                            <form method="post">
+                                {%  csrf_token %}
+                                <fieldset>
+                                    {{ form.as_p }}
+                                </fieldset>
+                                <div class="form-horizontal">
+                            <button class="btn btn-orange" type="submit">SAVE</button>
+                        </div>
+                            </form>
+
+                    </article>
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+{% endblock %}

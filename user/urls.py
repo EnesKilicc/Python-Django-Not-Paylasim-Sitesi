@@ -11,6 +11,7 @@ urlpatterns = [
     path('addnote/',views.add_note, name='add_note'),
     path('notes/',views.notes, name='notes'),
     path('comments/',views.comments, name='comments'),
-    path('editnote/<int:id>',views.editnote, name='comments'),
+    path('editnote/<int:id>',views.editnote, name='editnote'),
+    path('editcomment/<int:id>',views.editcomment, name='editcomment'),
 
 ]
