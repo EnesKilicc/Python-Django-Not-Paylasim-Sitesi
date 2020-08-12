@@ -1,13 +1,14 @@
 from django.contrib import messages
 from django.contrib.auth import update_session_auth_hash
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, redirect
 
 # Create your views here.
 from home.models import Setting, UserProfile
-from note.models import Category
-from user.form import UserUpdateForm, ProfileUpdateForm
+from note.models import Category, Note, Comment
+from user.form import UserUpdateForm, ProfileUpdateForm, InsertNoteForm
 
 
 def user_update(request):
@@ -48,6 +49,88 @@ def change_password(request):
             'form': form,
             'category':category
         })
+
+@login_required(login_url='/login')
+def add_note(request):
+    if request.method == 'POST':
+        form = InsertNoteForm(request.POST,request.FILES)
+        if form.is_valid():
+            current_user = request.user
+            data = Note()
+            data.user_id = current_user.id
+            data.title = form.cleaned_data['title']
+            data.keywords = form.cleaned_data['keywords']
+            data.description = form.cleaned_data['description']
+            data.image = form.cleaned_data['image']
+            data.okul = form.cleaned_data['okul']
+            data.egitmen = form.cleaned_data['egitmen']
+            data.ders = form.cleaned_data['ders']
+            data.detail = form.cleaned_data['detail']
+            data.slug = form.cleaned_data['slug']
+            data.category = form.cleaned_data['category']
+            data.status = 'False'
+            data.save()
+            messages.success(request, "Notunuz basarıyla olusturuldu")
+            return HttpResponseRedirect('/user')
+        else:
+            messages.success(request,"bir hata olustu")
+            return HttpResponseRedirect('/')
+    else:
+        category = Category.objects.all()
+        setting = Setting.objects.get(pk=1)
+        form = InsertNoteForm()
+        context = {'category':category,
+                   'setting':setting,
+                   'form': form,
+                   }
+        return render(request,'user_add_note.html',context)
+
+@login_required(login_url='/login')
+def notes(request):
+    category = Category.objects.all()
+    setting = Setting.objects.get(pk=1)
+    current_user = request.user
+    notes = Note.objects.filter(user_id=current_user.id)
+    context = {'category': category,
+               'setting': setting,
+               'notes': notes,
+               }
+    return render(request,'user_notes.html',context)
+@login_required(login_url='/login')
+def comments(request):
+
+    category = Category.objects.all()
+    setting = Setting.objects.get(pk=1)
+    current_user = request.user
+    comments = Comment.objects.filter(user_id=current_user.id)
+    context = {'category': category,
+               'setting': setting,
+               'comments': comments,
+               }
+    return render(request, 'user_comments.html', context)
+def editnote(request,id):
+    note = Note.objects.get(id=id)
+    if request.method == 'POST':
+        form = InsertNoteForm(request.POST,request.FILES,instance=note)
+        note.status = 'Update'
+        if form.is_valid():
+            form.save()
+            messages.success(request,"Güncelleme basarıyla yapıldı")
+            return HttpResponseRedirect('/user/notes')
+        else:
+            messages.success(request,"Güncelleme Hatası" + str(form.errors))
+            return HttpResponseRedirect('/user/editnote/'+str(id))
+    else:
+        category = Category.objects.all()
+        setting = Setting.objects.get(pk=1)
+        form = InsertNoteForm(instance=note)
+        context = {'category':category,
+                   'setting':setting,
+                   'form':form}
+        return render(request, 'user_add_note.html', context)
+
+
+
 
 
 def index(request):

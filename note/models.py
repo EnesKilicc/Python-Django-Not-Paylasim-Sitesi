@@ -42,6 +42,7 @@ class Category(MPTTModel):
 class Note(models.Model):
     STATUS = (('True', 'Evet'),
               ('False', 'Hayır'),
+              ('Update','Update'),
               )
     title = models.CharField(max_length=30)
     keywords = models.CharField(max_length=255)
@@ -54,6 +55,7 @@ class Note(models.Model):
     status = models.CharField(max_length=10, choices=STATUS)
     slug = models.SlugField()
     category = models.ForeignKey('Category', null=False, on_delete=models.CASCADE)
+    user = models.ForeignKey(User,on_delete=models.CASCADE, null=True)
     create_at = models.DateTimeField(auto_now_add=True)
     update_at = models.DateTimeField(auto_now=True)
 

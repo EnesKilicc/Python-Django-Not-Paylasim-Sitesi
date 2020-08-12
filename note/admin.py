@@ -13,8 +13,8 @@ class CategoryAdmin(admin.ModelAdmin):
     list_display = ['title', 'status', 'keywords','image_tag']
     readonly_fields = ('image_tag',)
 class NoteAdmin(admin.ModelAdmin):
-    list_filter = ['title']
-    list_display = ['title','category', 'status','image_tag' , 'keywords']
+    list_filter = ['status']
+    list_display = ['title','category', 'status','image_tag' , 'keywords','user','status']
     readonly_fields = ('image_tag',)
     inlines = [NoteImageInline]
 
