@@ -34,7 +34,8 @@ urlpatterns = [
     path('note/<int:id>/<slug:slug>/', views.note_detail, name='note_detail'),
     path('logout/', views.logout_view, name='logut_view'),
     path('login/', views.login_view, name='login_view'),
-    path('signup/', views.signup_view, name='signup_view')
+    path('signup/', views.signup_view, name='signup_view'),
+    path('sss/',views.sss,name='sss')
 ]
 if settings.DEBUG:
     urlpatterns +=static(settings.MEDIA_URL,document_root=settings.MEDIA_ROOT)

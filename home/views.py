@@ -5,7 +5,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from home.forms import SignUpForm
-from home.models import Setting, ContactFormMessage, ContactFormu, UserProfile
+from home.models import Setting, ContactFormMessage, ContactFormu, UserProfile, FAQ
 from note.models import Category, Note, Images, Comment
 
 
@@ -113,3 +113,14 @@ def signup_view(request):
                'form': form,
                }
     return render(request,'signup.html',context)
+
+
+def sss(request):
+    setting = Setting.objects.get(pk=1)
+    category = Category.objects.all()
+    faq = FAQ.objects.all().order_by('ordernumber')
+    context = {'category': category,
+               'faq': faq,
+               'setting':setting
+               }
+    return render(request,'sss.html',context)
