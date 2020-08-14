@@ -70,7 +70,7 @@ def add_note(request):
             data.category = form.cleaned_data['category']
             data.status = 'False'
             data.save()
-            messages.success(request, "Notunuz basarıyla olusturuldu")
+            messages.success(request, "Notunuz Admin Onayından Sonra Paylaşılacak")
             return HttpResponseRedirect('/user')
         else:
             messages.success(request,"bir hata olustu")

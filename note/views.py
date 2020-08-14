@@ -28,7 +28,7 @@ def addcomment(request, id):
             data.comment = form.cleaned_data['comment']
             data.ip = request.META.get('REMOTE_ADDR')
             data.save()
-            messages.success(request, "YORUMUNUZ BAŞARI İLE GÖNDERİLMİŞTİR")
+            messages.success(request, "YORUMUNUZ ADMIN ONAYINDAN SONRA PAYLAŞILACAKTIR")
 
             return HttpResponseRedirect(url)
     messages.error(request, "Yorumunuz kaydedilmedi lütfen kontrol ediniz")

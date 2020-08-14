@@ -3,7 +3,15 @@
 <header>
     <div class="container">
         <!-- hidden top area toggle link -->
-
+      <div class="system-message">
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-{{ message.tags }}" role="alert">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+</div>
         <!-- end toggle link -->
         <div class="row nomargin">
             <div class="span12">
@@ -11,10 +19,10 @@
                     {%  if user.id is not None %}
                     <ul>
                     <li><a href="/user"><img src="{{ user.userprofile.image.url }} " style="width: 45px; height: 45px;"> {{ user.first_name }}</a></li>
-                        <li><a href="/logout" data-toggle="modal"> Logout</a></li>
+                        <li><a href="/logout" data-toggle="modal"><i class="icon-signout"></i> Logout</a></li>
                         {% else %}
-                        <li><a href="/signup" data-toggle="modal"><i class="icon-user"></i> Sign up</a></li>
-                        <li><a href="/login" data-toggle="modal">Sign in</a></li>
+                        <li><a href="/signup" data-toggle="modal"><i class=" icon-plus-sign"></i> Sign up</a></li>
+                        <li><a href="/login" data-toggle="modal"><i class="icon-signin"></i>Sign in</a></li>
                     </ul>
 
                 </div>
@@ -51,18 +59,12 @@
             </div>
         </div>
         <div class="row">
+
             <div class="span4">
+
                 <div class="logo">
                     <a href="/"><img src="{% static 'img/logo.png'%}" alt="" class="logo" /></a>
-                    <h1>
-                    {% if messages %}
-                        {% for message in messages %}
-                            <div class="alert alert-{{ message.tags }}" role="alert">
-                                {{ message }}
-                            </div>
-                        {% endfor %}
-                    {% endif %}
-                    </h1>
+
                 </div>
             </div>
             <div class="span8">
@@ -70,12 +72,12 @@
                     <div class="navigation">
                         <nav>
                             <ul class="nav topnav">
-                                <li><a href="/">HOME</a></li>
+                                <li><a href="/"><i class="icon-home"></i>HOME</a></li>
 
 
 
                                 <li class="dropdown">
-                                    <a href="#">Fakülteler <i class="icon-angle-down"></i></a>
+                                    <a href="#"><i class="icon-list"></i>Fakülteler <i class="icon-angle-down"></i></a>
 
                                         {% load mptt_tags %}
                                             <ul class="dropdown-menu">
@@ -93,12 +95,12 @@
                                     </ul>
                                 </li>
 
-                                <li><a href="/hakkimizda">About us</a></li>
+                                <li><a href="/hakkimizda"><i class="icon-info-sign"></i>About us</a></li>
 
                                 <li>
-                                    <a href="/contact">Contact </a>
+                                    <a href="/contact"><i class=" icon-envelope-alt"></i>Contact </a>
                                 </li>
-                            <li><a href="/sss">S.S.S</a></li>
+                            <li><a href="/sss"><i class="icon-question-sign"></i>S.S.S</a></li>
                             </ul>
                         </nav>
                     </div>
